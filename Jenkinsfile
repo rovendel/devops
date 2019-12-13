@@ -44,10 +44,14 @@ node {
         }
 
         stage('SonarQube analysis') {
-             def scannerHome = tool 'sonarQube scanner';
-             withSonarQubeEnv('sonarQube') { // If you have configured more than one global server connection, you can specify its name
-                 sh "${scannerHome}/bin/sonar-scanner"
-             }
+   
+         withMaven(maven: 'maven') { 
+ 			if(isUnix()) {
+ 				sh "mvn sonar:sonar" 
+			} else { 
+ 				bat "mvn sonar:sonar" 
+			} 
+ 		} 
         }
         
         stage('packaging') {
