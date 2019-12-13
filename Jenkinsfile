@@ -47,15 +47,8 @@ node {
 */
         stage('SonarQube analysis') {
    
-         withMaven(maven: 'maven') { 
- 			if(isUnix()) {
- 				sh "mvn sonar:sonar" 
-			} else { 
- 				bat "mvn sonar:sonar" 
-			} 
- 		} 
-        }
-        
+         sh "./mvnw sonar:sonar"
+        }      
         stage('packaging') {
             sh "./mvnw verify -Pprod -DskipTests"
             archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
