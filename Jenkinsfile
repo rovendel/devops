@@ -57,7 +57,7 @@ node {
     }
 
     stage('publish docker') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-login') {
+        docker.withRegistry('https://registry.hub.docker.com', 'rovendel') {
             dockerImage.push 'latest'
         }
     }
