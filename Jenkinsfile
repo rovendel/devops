@@ -46,8 +46,9 @@ node {
         }
 */
         stage('SonarQube analysis') {
-   
-         sh "./mvnw http://172.19.0.7:9000"
+            withSonarQubeEnv('SonarQube'){
+         sh "./mvnw sonar:sonar"
+            }
         }      
         stage('packaging') {
             sh "./mvnw verify -Pprod -DskipTests"
