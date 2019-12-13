@@ -45,15 +45,16 @@ node {
     /*           }
         }
 */
+         stage('packaging') {
+            sh "./mvnw verify -Pprod -DskipTests"
+            archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+        }
         stage('SonarQube analysis') {
             withSonarQubeEnv('sonarQube'){
          sh "./mvnw sonar:sonar"
             }
         }      
-        stage('packaging') {
-            sh "./mvnw verify -Pprod -DskipTests"
-            archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
-        }
+
     }
 
     def dockerImage
