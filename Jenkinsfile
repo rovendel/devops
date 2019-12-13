@@ -47,7 +47,7 @@ node {
 */
         stage('SonarQube analysis') {
    
-         sh "./mvnw sonar:sonar"
+         sh "./mvnw http://172.19.0.7:9000"
         }      
         stage('packaging') {
             sh "./mvnw verify -Pprod -DskipTests"
